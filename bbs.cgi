@@ -84,11 +84,6 @@ print $sfh2 @newsubjects;
 close $sfh2;
 
 
-print "Content-Type: text/html; charset=UTF-8\n\n";
-print <<'HTML';
-<html>
-<head><title>書きこみました。</title></head>
-<body>書きこみました。</body>
-</html>
-HTML
-print "Location: index.htm\n\n"
+print "Status: 302 Found\n";
+print "Location: index.htm\n\n";
+
