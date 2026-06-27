@@ -47,12 +47,12 @@ my $firstline = join("<>",
     ""
 ) . "\n";
 
-open my $fh, ">:encoding(UTF-8)", $dat or die "Cannot write dat: $!";
+open my $fh, ">", $dat or die "Cannot write dat: $!";
 print $fh $firstline;
 close $fh;
 
 my $subject = "$dir/subject.txt";
-open my $sfh, ">>:encoding(UTF-8)", $subject or die "Cannot write subject: $!";
+open my $sfh, ">>", $subject or die "Cannot write subject: $!";
 print $sfh "$key.dat<>$title (1)\n";
 close $sfh;
 
