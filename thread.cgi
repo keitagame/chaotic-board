@@ -17,7 +17,7 @@ if (!$bbs || !$title || !$body) {
     exit;
 }
 
-my $dir = "/var/www/html/$bbs";
+my $dir = "/var/www/html/";
 my $datdir = "$dir/dat";
 
 mkdir $datdir if !-d $datdir;
