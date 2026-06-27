@@ -56,13 +56,6 @@ open my $sfh, ">>:encoding(UTF-8)", $subject or die "Cannot write subject: $!";
 print $sfh "$key.dat<>$title (1)\n";
 close $sfh;
 
-print "Content-Type: text/html; charset=UTF-8\n\n";
-print <<"HTML";
-<html>
-<head><title>スレ立て完了</title></head>
-<body>
-スレッドを作成しました。<br>
-<a href="/thread.html?bbs=$bbs&key=$key">スレを開く</a>
-</body>
-</html>
-HTML
+
+print "Status: 302 Found\n";
+print "Location: index.htm\n\n";
