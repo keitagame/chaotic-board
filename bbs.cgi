@@ -12,7 +12,7 @@ my $name = $q->param('FROM') || '名無しさん';
 my $mail = $q->param('mail') || '';
 my $body = $q->param('MESSAGE') || '';
 
-my $dir = "/var/www/html/$bbs";
+my $dir = "/var/www/html/";
 my $dat = "$dir/dat/$key.dat";
 
 
