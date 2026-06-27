@@ -65,7 +65,7 @@ async function loadSubject() {
     const div = document.createElement('div');
     div.className = 'thread';
 
-    div.innerHTML = `
+    let ue  = `
 
 <br>
 <br>
@@ -93,14 +93,15 @@ const mres = await fetch(`/dat/${key}.dat`, { cache: 'no-cache' });
     const title = escapeHtml(cols[5]);
 
    
-    div.innerHTML = `
+    ue += `
     ${no} 名前：<font color="green"><strong>${mail ? '<a href="mailto:' + mail + '">' + name + '</a>' : name}</strong></font> ：${time}<br>
 &emsp;&emsp;&ensp;${body}
       `;
     
   });
-div.innerHTML =`
 
+div.innerHTML =`
+${ue} 
 <br>
 <br>
 <form action="/bbs.cgi" method="post"> 
