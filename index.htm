@@ -57,7 +57,7 @@ async function loadSubject() {
   const container = document.getElementById('threads');
   container.innerHTML = '';
 
-  lines.forEach(line => {
+  for (const line of lines) {
     const [dat, rest] = line.split('<>');
     if (!dat || !rest) return;
 
@@ -78,8 +78,8 @@ async function loadSubject() {
 <br>
 `;
 
-const res = fetch(`/dat/${key}.dat`, { cache: 'no-cache' });
-  const text = res.text();
+const mres = await fetch(`/dat/${key}.dat`, { cache: 'no-cache' });
+  const text = await mres.text();
   const lines = text.trim().split('\n');
 
 
@@ -124,7 +124,7 @@ div.innerHTML =`
 `;
 
     container.appendChild(div);
-  });
+  }
 }
   function escapeHtml(str) {
   return str
