@@ -23,7 +23,7 @@ if (!-e $dat) {
 }
 
 
-open my $fh, "<:encoding(UTF-8)", $dat or die "Cannot open dat: $!";
+open my $fh, "<", $dat or die "Cannot open dat: $!";
 my @lines = <$fh>;
 close $fh;
 
