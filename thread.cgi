@@ -4,21 +4,21 @@ use warnings;
 use CGI;
 use Encode qw(encode decode);
 
-# my $q = CGI->new;
-
-# my $bbs   = $q->param('bbs');
-# my $title = $q->param('title');
-# my $name  = $q->param('FROM') || '名無しさん';
-# my $mail  = $q->param('mail') || '';
-# my $body  = $q->param('MESSAGE') || '';
 my $q = CGI->new;
 
+my $bbs   = $q->param('bbs');
+my $title = $q->param('title');
+my $name  = $q->param('FROM') || '名無しさん';
+my $mail  = $q->param('mail') || '';
+my $body  = $q->param('MESSAGE') || '';
+#my $q = CGI->new;
 
-my $bbs   = decode('Shift_JIS', $q->param('bbs')   || '');
-my $title = decode('Shift_JIS', $q->param('title') || '');
-my $name  = decode('Shift_JIS', $q->param('FROM')  || '名無しさん');
-my $mail  = decode('Shift_JIS', $q->param('mail')  || '');
-my $body  = decode('Shift_JIS', $q->param('MESSAGE') || '');
+
+#my $bbs   = decode('Shift_JIS', $q->param('bbs')   || '');
+#my $title = decode('Shift_JIS', $q->param('title') || '');
+#my $name  = decode('Shift_JIS', $q->param('FROM')  || '名無しさん');
+#my $mail  = decode('Shift_JIS', $q->param('mail')  || '');
+#my $body  = decode('Shift_JIS', $q->param('MESSAGE') || '');
 
 if (!$bbs || !$title || !$body) {
     print "Content-Type: text/html; charset=UTF-8\n\n";
