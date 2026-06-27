@@ -95,7 +95,7 @@ const mres = await fetch(`/dat/${key}.dat`, { cache: 'no-cache' });
    
     div.innerHTML = `
     ${no} 名前：<font color="green"><strong>${mail ? '<a href="mailto:' + mail + '">' + name + '</a>' : name}</strong></font> ：${time}<br>
-&emsp;&emsp;&ensp;${bodyHtml}
+&emsp;&emsp;&ensp;${body}
       `;
     
   });
