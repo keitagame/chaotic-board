@@ -39,5 +39,145 @@
 <br>
 
 
+<script>
 
+    const params = new URLSearchParams(location.search);
+const bbs = params.get('bbs') || location.pathname.split('/')[1];  
+// /test/2ch.html → "test"
+
+async function loadSubject() {
+  const res = await fetch(`/subject.txt`, { cache: 'no-cache' });
+  const text = await res.text();
+  const lines = text.trim().split('\n');
+
+  const container = document.getElementById('threads');
+  container.innerHTML = '';
+
+  lines.forEach(line => {
+    const [dat, rest] = line.split('<>');
+    if (!dat || !rest) return;
+
+    const key = dat.replace('.dat', '');
+    const div = document.createElement('div');
+    div.className = 'thread';
+
+    div.innerHTML = `
+
+<br>
+<br>
+
+<table bgcolor="#F0F0F0" align="center" border="1" width="90%" cellpadding="2" cellspacing="7">
+
+<tr>
+<td>
+<div><b></b><font size="5" color="red"><b>${rest}</b></font></div>
+<br>
+`;
+
+const res = fetch(`/dat/${key}.dat`, { cache: 'no-cache' });
+  const text = res.text();
+  const lines = text.trim().split('\n');
+
+
+  lines.forEach((line, idx) => {
+    const cols = line.split('<>');
+    const no    = cols[0];
+    const name  = escapeHtml(cols[1]);
+    const mail  = escapeHtml(cols[2]);
+    const time  = escapeHtml(cols[3]);
+    const body  = escapeHtml(cols[4]);
+    const title = escapeHtml(cols[5]);
+
+   
+    div.innerHTML = `
+    ${no} 名前：<font color="green"><strong>${mail ? '<a href="mailto:' + mail + '">' + name + '</a>' : name}</strong></font> ：${time}<br>
+&emsp;&emsp;&ensp;${bodyHtml}
+      `;
+    
+  });
+div.innerHTML =`
+
+<br>
+<br>
+<form action="/bbs.cgi" method="post"> 
+<input name="key" type="hidden" value="${key}">
+<button type="submit">書き込む</button>
+<label for="username">名前：</label>
+<input type="text" id="username" width="100" name="FORM" required placeholder="名無し"> 
+<label for="useremail">メアド：</label>
+<input type="email" id="useremail" name="mail" required> 
+<br>
+<br>
+<textarea id="usermessage" name="MESSAGE" rows="5" cols="65" required></textarea>
+</form>
+<a href="."><strong>リロード</strong></a>&ensp;<a href="/"><strong>板のトップ</strong></a>
+
+</td>
+</tr>
+</table>
+      
+    
+`;
+
+    container.appendChild(div);
+  });
+}
+  function escapeHtml(str) {
+  return str
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;");
+}
+
+async function loadDat() {
+  const res = await fetch(`/${bbs}/dat/${key}.dat`, { cache: 'no-cache' });
+  const text = await res.text();
+  const lines = text.trim().split('\n');
+
+  const container = document.getElementById('reslist');
+  container.innerHTML = '';
+
+  lines.forEach((line, idx) => {
+    const cols = line.split('<>');
+    const no    = cols[0];
+    const name  = escapeHtml(cols[1]);
+    const mail  = escapeHtml(cols[2]);
+    const time  = escapeHtml(cols[3]);
+    const body  = escapeHtml(cols[4]);
+    const title = escapeHtml(cols[5]);
+
+    if (idx === 0) {
+      document.getElementById('title').textContent = title;
+    }
+
+    const bodyHtml = body.replace(
+      /(https?:\/\/\S+)/g,
+      '<a href="$1" target="_blank">$1</a>'
+    );
+
+    const div = document.createElement('div');
+    div.className = 'res';
+    div.innerHTML = `
+      <div class="meta">
+        <span>${no}</span> :
+        <span class="name">${mail ? '<a href="mailto:' + mail + '">' + name + '</a>' : name}</span>
+        <span>${time}</span>
+      </div>
+      <div class="body">${bodyHtml}</div>
+    `;
+    container.appendChild(div);
+  });
+}
+async function loadSetting() {
+  const res = await fetch(`/${bbs}/setting.txt`);
+  const text = await res.text();
+  const titleLine = text.split('\n').find(l => l.startsWith('BBS_TITLE='));
+  if (titleLine) {
+    document.getElementById('boardTitle').textContent = titleLine.replace('BBS_TITLE=', '').trim();
+  }
+}
+
+loadSetting();
+loadSubject();
+</script>
 </HTML>
