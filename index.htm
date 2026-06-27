@@ -50,7 +50,7 @@ const bbs = params.get('bbs') || location.pathname.split('/')[1];
 // /test/2ch.html → "test"
 
 async function loadSubject() {
-  const res = await fetch(`/subject.txt`, { cache: 'no-cache' });
+  const res = await fetch(`subject.txt`, { cache: 'no-cache' });
   const text = await res.text() || '';
   const lines = text.trim().split('\n');
 
