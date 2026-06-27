@@ -51,7 +51,7 @@ const bbs = params.get('bbs') || location.pathname.split('/')[1];
 
 async function loadSubject() {
   const res = await fetch(`/subject.txt`, { cache: 'no-cache' });
-  const text = await res.text();
+  const text = await res.text() || '';
   const lines = text.trim().split('\n');
 
   const container = document.getElementById('threads');
