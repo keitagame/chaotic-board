@@ -79,7 +79,7 @@ foreach my $line (@subjects) {
     }
 }
 
-open my $sfh2, ">:encoding(UTF-8)", $subject;
+open my $sfh2, ">", $subject;
 print $sfh2 @newsubjects;
 close $sfh2;
 
