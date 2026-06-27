@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>スレ立て</title>
+</head>
+<body>
+
+<h1>新規スレッド作成</h1>
+
+<form action="/thread.cgi" method="POST">
+  <input type="hidden" name="bbs" value="">
+  <div>タイトル: <input type="text" name="title" required></div>
+  <div>名前: <input type="text" name="FROM" value="名無しさん"></div>
+  <div>メール: <input type="text" name="mail"></div>
+  <div>本文:<br><textarea name="MESSAGE" required></textarea></div>
+  <button type="submit">スレ立て</button>
+</form>
+
+<script>
+const bbs = location.pathname.split("/")[1];
+document.querySelector("input[name=bbs]").value = bbs;
+</script>
+
+</body>
+</html>
