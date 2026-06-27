@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>スレ立て</title>
+</head>
+<body>
+
+<table align="center" bgcolor="#C4FFCA" border="1" width="90%"  cellpadding="2" cellspacing="7">
+<tr>
+
+<td>
+<font size="4">&emsp;<strong>テスト@掲示板</strong></font>
+<br>
+<br>&emsp;
+
+<form action="/thread.cgi" method="POST">
+  <input type="hidden" name="bbs" value="">
+  &emsp;&emsp;タイトル：<input type="text" name="title" required>&emsp;<button type="submit">スレ立て</button><br>
+ &emsp;&emsp;&emsp;&ensp;&ensp;名前：<input type="text" name="FROM" value="名無しさん">
+  メール：<input type="text" name="mail"><br>
+    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<textarea cols="60" rows="6" name="MESSAGE" required></textarea>
+  
+</form>
+<br></td>
+
+</tr>
+<tr>
+<td align="center"><a href="m"><small>書き込む前に読んでね</small></a>&emsp;<a href="k"><small>ガイドライン</small></a></td>
+</tr>
+</table>
+
+<br>
+<br>
+
+
+<script>
+const bbs = location.pathname.split("/")[1];
+document.querySelector("input[name=bbs]").value = bbs;
+</script>
+
+</body>
+</html>
