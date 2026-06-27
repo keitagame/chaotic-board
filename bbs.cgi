@@ -56,7 +56,7 @@ my $newline = join("<>",
 ) . "\n";
 
 
-open my $fh2, ">>:encoding(UTF-8)", $dat or die "Cannot write dat: $!";
+open my $fh2, ">>", $dat or die "Cannot write dat: $!";
 print $fh2 $newline;
 close $fh2;
 
@@ -65,7 +65,7 @@ my $subject = "$dir/subject.txt";
 my @subjects;
 
 if (-e $subject) {
-    open my $sfh, "<:encoding(UTF-8)", $subject;
+    open my $sfh, "<", $subject;
     @subjects = <$sfh>;
     close $sfh;
 }
