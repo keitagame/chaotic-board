@@ -91,3 +91,4 @@ print <<'HTML';
 <body>書きこみました。</body>
 </html>
 HTML
+print "Location: index.htm\n\n"
