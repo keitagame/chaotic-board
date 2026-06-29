@@ -50,8 +50,7 @@ const bbs = params.get('bbs') || location.pathname.split('/')[1];
 // /test/2ch.html Å® "test"
 
 async function loadSubject() {
-  const res = await fetchSJIS(`subject.txt`, { cache: 'no-cache' });
-  const text = await res.text() || '';
+  const text = await fetchSJIS(`subject.txt`);
   const lines = text.trim().split('\n');
 
   const container = document.getElementById('threads');
@@ -77,8 +76,8 @@ async function loadSubject() {
 <br>
 `;
 
-const mres = await fetchSJIS(`/dat/${key}.dat`, { cache: 'no-cache' });
-  const text = await mres.text();
+
+  const text = await fetchSJIS(`/dat/${key}.dat`);
   const lines = text.trim().split('\n');
 
 
