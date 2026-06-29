@@ -50,7 +50,7 @@ const bbs = params.get('bbs') || location.pathname.split('/')[1];
 // /test/2ch.html Å® "test"
 
 async function loadSubject() {
-  const res = await fetch(`subject.txt`, { cache: 'no-cache' });
+  const res = await fetchSJIS(`subject.txt`, { cache: 'no-cache' });
   const text = await res.text() || '';
   const lines = text.trim().split('\n');
 
@@ -77,7 +77,7 @@ async function loadSubject() {
 <br>
 `;
 
-const mres = await fetch(`/dat/${key}.dat`, { cache: 'no-cache' });
+const mres = await fetchSJIS(`/dat/${key}.dat`, { cache: 'no-cache' });
   const text = await mres.text();
   const lines = text.trim().split('\n');
 
@@ -172,6 +172,13 @@ async function loadDat() {
     container.appendChild(div);
   });
 }
+async function fetchSJIS(url) {
+  const res = await fetch(url, { cache: 'no-cache' });
+  const buf = await res.arrayBuffer();
+  const decoder = new TextDecoder("shift_jis");
+  return decoder.decode(buf);
+}
+
 async function loadSetting() {
   const res = await fetch(`/${bbs}/setting.txt`);
   const text = await res.text();
