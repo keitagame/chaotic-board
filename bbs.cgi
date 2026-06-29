@@ -8,7 +8,7 @@ my $q = CGI->new;
 
 my $bbs  = $q->param('bbs');
 my $key  = $q->param('key');
-my $name = $q->param('FROM') || '–¼–³‚µ‚³‚ñ';
+my $name = $q->param('FROM') || 'åç„¡ã—ã•ã‚“';
 my $mail = $q->param('mail') || '';
 my $body = $q->param('MESSAGE') || '';
 
@@ -18,7 +18,7 @@ my $dat = "$dir/dat/$key.dat";
 
 if (!-e $dat) {
     print "Content-Type: text/html; charset=UTF-8\n\n";
-    print "<html><body>ƒXƒŒƒbƒh‚ª‚ ‚è‚Ü‚¹‚ñB</body></html>";
+    print "<html><body>ã‚¹ãƒ¬ãƒƒãƒ‰ãŒã‚ã‚Šã¾ã›ã‚“ã€‚</body></html>";
     exit;
 }
 
@@ -33,7 +33,7 @@ my @t = localtime();
 my $time = sprintf(
     "%04d/%02d/%02d(%s) %02d:%02d:%02d",
     $t[5]+1900, $t[4]+1, $t[3],
-    (qw(“ú Œ ‰Î … –Ø ‹à “y))[$t[6]],
+    (qw(æ—¥ æœˆ ç« æ°´ æœ¨ é‡‘ åœŸ))[$t[6]],
     $t[2], $t[1], $t[0]
 );
 
@@ -71,10 +71,25 @@ if (-e $subject) {
 }
 
 my @newsubjects;
-foreach my $line (@subjects) {
-    if ($line =~ /^$key\.dat<>\Q$title\E/) {
-        push @newsubjects, "$key.dat<>$title ($no)\n";
-    } else {
+
+my $is_sage = ($mail =~ /sage/i) ? 1 : 0;
+
+
+if ($is_sage) {
+    
+    foreach my $line (@subjects) {
+        if ($line =~ /^$key\.dat<>\Q$title\E/) {
+            push @newsubjects, "$key.dat<>$title ($no)\n";
+        } else {
+            push @newsubjects, $line;
+        }
+    }
+} else {
+    
+    push @newsubjects, "$key.dat<>$title ($no)\n";
+
+    foreach my $line (@subjects) {
+        next if $line =~ /^$key\.dat<>\Q$title\E/;
         push @newsubjects, $line;
     }
 }
