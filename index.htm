@@ -50,7 +50,7 @@ const bbs = params.get('bbs') || location.pathname.split('/')[1];
 // /test/2ch.html Å® "test"
 
 async function loadSubject() {
-  const text = await fetchSJIS(`subject.txt`);
+  const text = await fetchSJIS(`subject.txt`) || '';
   const lines = text.trim().split('\n');
 
   const container = document.getElementById('threads');
@@ -77,7 +77,7 @@ async function loadSubject() {
 `;
 
 
-  const text = await fetchSJIS(`/dat/${key}.dat`);
+  const text = await fetchSJIS(`/dat/${key}.dat`) || '';
   const lines = text.trim().split('\n');
 
 
