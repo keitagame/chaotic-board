@@ -2,9 +2,8 @@
 use strict;
 use warnings;
 use CGI;
-
+use Digest::MD5 qw(md5_hex);
 my $q = CGI->new;
-
 
 my $bbs  = $q->param('bbs');
 my $key  = $q->param('key');
@@ -36,9 +35,13 @@ my $time = sprintf(
     (qw(“ú Œ ‰Î … –Ø ‹à “y))[$t[6]],
     $t[2], $t[1], $t[0]
 );
-
 my $ip = $ENV{'REMOTE_ADDR'} || "0.0.0.0";
-my $id = substr(unpack("H*", pack("C*", split(/\./, $ip))), 0, 8);
+
+my ($sec,$min,$hour,$mday,$mon,$year) = localtime;
+my $date = sprintf("%04d%02d%02d", $year + 1900, $mon + 1, $mday);
+
+my $id = uc substr(md5_hex("$ip$date"), 0, 8);
+
 my $timecol = "$time ID:$id";
 
 my @c = split(/<>/, $lines[0]);
