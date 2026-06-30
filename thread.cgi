@@ -2,7 +2,7 @@
 use strict;
 use warnings;
 use CGI;
-
+use Digest::MD5 qw(md5_hex);
 my $q = CGI->new;
 
 my $bbs   = $q->param('bbs');
