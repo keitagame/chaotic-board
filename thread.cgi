@@ -7,13 +7,13 @@ my $q = CGI->new;
 
 my $bbs   = $q->param('bbs');
 my $title = $q->param('title');
-my $name  = $q->param('FROM') || '–¼–³‚µ‚³‚ñ';
+my $name  = $q->param('FROM') || 'åç„¡ã—ã•ã‚“';
 my $mail  = $q->param('mail') || '';
 my $body  = $q->param('MESSAGE') || '';
 
 if (!$bbs || !$title || !$body) {
     print "Content-Type: text/html; charset=UTF-8\n\n";
-    print "<html><body>“ü—Í‚ª•s‘«‚µ‚Ä‚¢‚Ü‚·B</body></html>";
+    print "<html><body>å…¥åŠ›ãŒä¸è¶³ã—ã¦ã„ã¾ã™ã€‚</body></html>";
     exit;
 }
 
@@ -29,12 +29,16 @@ my @t = localtime();
 my $time = sprintf(
     "%04d/%02d/%02d(%s) %02d:%02d:%02d",
     $t[5]+1900, $t[4]+1, $t[3],
-    (qw(“ú Œ ‰Î … –Ø ‹à “y))[$t[6]],
+    (qw(æ—¥ æœˆ ç« æ°´ æœ¨ é‡‘ åœŸ))[$t[6]],
     $t[2], $t[1], $t[0]
 );
 
 my $ip = $ENV{'REMOTE_ADDR'} || "0.0.0.0";
-my $id = substr( unpack("H*", pack("C*", split(/\./, $ip))), 0, 8 );
+
+my ($sec,$min,$hour,$mday,$mon,$year) = localtime;
+my $date = sprintf("%04d%02d%02d", $year + 1900, $mon + 1, $mday);
+
+my $id = uc substr(md5_hex("$ip$date"), 0, 8);
 my $timecol = "$time ID:$id";
 
 my $firstline = join("<>",
