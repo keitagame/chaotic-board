@@ -57,6 +57,7 @@ async function loadSubject() {
   container.innerHTML = '';
 
   for (const line of lines) {
+    if (!line.trim() || !line.includes('<>')) continue;
     const [dat, rest] = line.split('<>');
     if (!dat || !rest) return;
 
@@ -82,6 +83,7 @@ async function loadSubject() {
 
 
   lines.forEach((line, idx) => {
+if (!line.trim() || !line.includes('<>')) return;
     const cols = line.split('<>');
     const no    = cols[0];
     const name  = escapeHtml(cols[1]);
@@ -147,6 +149,7 @@ async function loadDat() {
   container.innerHTML = '';
 
   lines.forEach((line, idx) => {
+if (!line.trim() || !line.includes('<>')) return;
     const cols = line.split('<>');
     const no    = cols[0];
     const name  = escapeHtml(cols[1]);
