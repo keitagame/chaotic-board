@@ -90,11 +90,16 @@ async function loadSubject() {
     const body  = escapeHtml(cols[4]);
     const title = escapeHtml(cols[5]);
 
+   const bodyHtml = body.replace(/&gt;&gt;(\d+)/g, `<a href="#res-${key}-$1">&gt;&gt;$1</a>`);
    
-    ue += `
-    ${no} 名前：<font color="green"><strong>${mail ? '<a href="mailto:' + mail + '">' + name + '</a>' : name}</strong></font> ：${time}<br>
-&emsp;&emsp;&ensp;${body}<br><br>
+      // 【修正】レス全体を識別用の id を持った div で囲むように変更
+      ue += `
+      <div id="res-${key}-${no}">
+        ${no} 名前：<font color="green"><strong>${mail ? '<a href="mailto:' + mail + '">' + name + '</a>' : name}</strong></font> ：${time}<br>
+        &emsp;&emsp;&ensp;${bodyHtml}<br><br>
+      </div>
       `;
+    
     
   });
 
@@ -153,13 +158,16 @@ async function loadDat() {
       document.getElementById('title').textContent = title;
     }
 
-    const bodyHtml = body.replace(
+  
+let bodyHtml = body.replace(
       /(https?:\/\/\S+)/g,
       '<a href="$1" target="_blank">$1</a>'
     );
+    bodyHtml = bodyHtml.replace(/&gt;&gt;(\d+)/g, '<a href="#r$1">&gt;&gt;$1</a>');
 
     const div = document.createElement('div');
     div.className = 'res';
+    div.id = `r${no}`; 
     div.innerHTML = `
       <div class="meta">
         <span>${no}</span> :
