@@ -131,6 +131,7 @@ ${ue}
   }
 }
   function escapeHtml(str) {
+if (str === undefined || str === null) return '';
   return str
     .replace(/&/g, "&amp;")
     .replace(/</g, "&lt;")
