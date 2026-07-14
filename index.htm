@@ -57,7 +57,6 @@ async function loadSubject() {
   container.innerHTML = '';
 
   for (const line of lines) {
-    if (!line.trim() || !line.includes('<>')) continue;
     const [dat, rest] = line.split('<>');
     if (!dat || !rest) return;
 
@@ -83,7 +82,6 @@ async function loadSubject() {
 
 
   lines.forEach((line, idx) => {
-if (!line.trim() || !line.includes('<>')) return;
     const cols = line.split('<>');
     const no    = cols[0];
     const name  = escapeHtml(cols[1]);
@@ -92,16 +90,11 @@ if (!line.trim() || !line.includes('<>')) return;
     const body  = escapeHtml(cols[4]);
     const title = escapeHtml(cols[5]);
 
-   const bodyHtml = body.replace(/&gt;&gt;(\d+)/g, `<a href="#res-${key}-$1">&gt;&gt;$1</a>`);
    
-      // 【修正】レス全体を識別用の id を持った div で囲むように変更
-      ue += `
-      <div id="res-${key}-${no}">
-        ${no} 名前：<font color="green"><strong>${mail ? '<a href="mailto:' + mail + '">' + name + '</a>' : name}</strong></font> ：${time}<br>
-        &emsp;&emsp;&ensp;${bodyHtml}<br><br>
-      </div>
+    ue += `
+    ${no} 名前：<font color="green"><strong>${mail ? '<a href="mailto:' + mail + '">' + name + '</a>' : name}</strong></font> ：${time}<br>
+&emsp;&emsp;&ensp;${body}<br><br>
       `;
-    
     
   });
 
@@ -133,7 +126,6 @@ ${ue}
   }
 }
   function escapeHtml(str) {
-if (str === undefined || str === null) return '';
   return str
     .replace(/&/g, "&amp;")
     .replace(/</g, "&lt;")
@@ -149,7 +141,6 @@ async function loadDat() {
   container.innerHTML = '';
 
   lines.forEach((line, idx) => {
-if (!line.trim() || !line.includes('<>')) return;
     const cols = line.split('<>');
     const no    = cols[0];
     const name  = escapeHtml(cols[1]);
@@ -162,16 +153,13 @@ if (!line.trim() || !line.includes('<>')) return;
       document.getElementById('title').textContent = title;
     }
 
-  
-let bodyHtml = body.replace(
+    const bodyHtml = body.replace(
       /(https?:\/\/\S+)/g,
       '<a href="$1" target="_blank">$1</a>'
     );
-    bodyHtml = bodyHtml.replace(/&gt;&gt;(\d+)/g, '<a href="#r$1">&gt;&gt;$1</a>');
 
     const div = document.createElement('div');
     div.className = 'res';
-    div.id = `r${no}`; 
     div.innerHTML = `
       <div class="meta">
         <span>${no}</span> :
