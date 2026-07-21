@@ -10,6 +10,7 @@ COPY . /var/www/html
 
 RUN chmod -R 755 /var/www/html/bbs.cgi
 RUN chmod -R 755 /var/www/html/thread.cgi
+RUN chmod -R 755 /var/www/html/read.cgi
 
 CMD spawn-fcgi -s /var/run/fcgiwrap.socket -M 766 /usr/sbin/fcgiwrap && \
     nginx -g "daemon off;"
