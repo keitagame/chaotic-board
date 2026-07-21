@@ -15,6 +15,11 @@
         }
     </style>
 </HEAD>
+<!-- 送信先URLにread.cgiのパスを指定 -->
+<form align="right" action="read.cgi" method="GET">
+  
+  <input type="submit" value="read.cgiモードで表示">
+</form>
 
 <table align="center" bgcolor="#C4FFCA" border="1" width="90%"  cellpadding="2" cellspacing="7">
 <tr>
@@ -42,6 +47,7 @@
 <td align="center"><a href="tate.htm"><small>すれたて</small></a></td>
 </tr>
 </table>
+
 
 <script>
 
@@ -77,7 +83,7 @@ async function loadSubject() {
 `;
 
 
-  const text = await fetchSJIS(`/dat/${key}.dat`) || '';
+  const text = await fetchSJIS(`dat/${key}.dat`) || '';
   const lines = text.trim().split('\n');
 
 
@@ -102,7 +108,7 @@ div.innerHTML =`
 ${ue} 
 <br>
 <br>
-<form action="/bbs.cgi" method="post"> 
+<form action="/bbs/bbs.cgi" method="post"> 
 <input name="key" type="hidden" value="${key}">
 <button type="submit">書き込む</button>
 <label for="username">名前：</label>
@@ -126,6 +132,7 @@ ${ue}
   }
 }
   function escapeHtml(str) {
+    if (!str) return '';
   return str
     .replace(/&/g, "&amp;")
     .replace(/</g, "&lt;")
